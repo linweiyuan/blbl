@@ -1,17 +1,17 @@
 package com.linweiyuan
 
+import com.linweiyuan.blbl.blbl
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.*
 import io.ktor.gson.gson
-import io.ktor.http.ContentType
 import io.ktor.request.path
-import io.ktor.response.respond
 import io.ktor.response.respondText
-import io.ktor.routing.get
 import io.ktor.routing.routing
+import io.ktor.thymeleaf.Thymeleaf
 import org.slf4j.event.Level
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -37,13 +37,21 @@ fun Application.module() {
         }
     }
 
-    routing {
-        get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-        }
+    install(Thymeleaf) {
+        setTemplateResolver(ClassLoaderTemplateResolver().apply {
+            prefix = "templates/"
+            suffix = ".html"
+            characterEncoding = "UTF-8"
+        })
+    }
 
-        get("/json/gson") {
-            call.respond(mapOf("hello" to "world"))
+    install(StatusPages) {
+        exception<Throwable> { e ->
+            call.respondText("系统异常 -> ${e.localizedMessage}")
         }
+    }
+
+    routing {
+        blbl(com.linweiyuan.blbl.Service())
     }
 }

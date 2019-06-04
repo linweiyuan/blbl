@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<!--suppress XmlUnusedNamespaceDeclaration, HtmlFormInputWithoutLabel -->
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <title>B站视频封面下载</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        #cover {
+            background: #567;
+            background-size: cover;
+            height: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #cover-caption {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row text-white">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <h1 class="display-6">(゜-゜)つロ 干杯~</h1>
+                    <div class="info-form">
+                        <form method="post" class="form-inlin justify-content-center">
+                            <div class="form-group">
+                                <input type="text" name="param" class="form-control" placeholder="视频链接或者av号" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">下载</button>
+                        </form>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
