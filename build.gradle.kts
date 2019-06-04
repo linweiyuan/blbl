@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -6,6 +8,7 @@ val utils_version: String by project
 plugins {
     application
     kotlin("jvm") version "1.3.31"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
 }
 
 group = "blbl"
@@ -33,3 +36,17 @@ dependencies {
 kotlin.sourceSets["main"].kotlin.srcDirs("src")
 
 sourceSets["main"].resources.srcDirs("resources")
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to "io.ktor.server.netty.EngineMain"
+            )
+        )
+    }
+}
